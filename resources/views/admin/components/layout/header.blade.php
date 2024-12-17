@@ -371,7 +371,7 @@
                         <li><a href="kanban.html"><i data-feather="file-text"></i><span>Taskboard</span></a>
                         </li>
                         <li><a href="edit-profile.html"><i data-feather="settings"></i><span>Settings</span></a></li>
-                        <li><a href="login.html"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+                        <li><a href="{{ url('/logout') }}"><i data-feather="log-in"> </i><span>Log Out</span></a></li>
                     </ul>
                 </li>
             </ul>

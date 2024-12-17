@@ -5,19 +5,21 @@
             <div class="col-xl-5"><img class="bg-img-cover bg-center" src="../assets/images/login/3.jpg" alt="looginpage"></div>
             <div class="col-xl-7 p-0">
                 <div class="login-card">
-                    <form class="theme-form login-form">
+                    <form action="{{ url('/login') }}" method="POST" class="theme-form login-form">
+                        @csrf
                         <h4>Login</h4>
                         <h6>Welcome back! Log in to your account.</h6>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                                <input class="form-control" type="email" required="" placeholder="Test@gmail.com">
+                            <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <input class="form-control" name="username" type="text" required=""
+                                    placeholder="username">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
                             <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
-                                <input class="form-control" type="password" name="login[password]" required=""
+                                <input class="form-control" type="password" name="password" required=""
                                     placeholder="*********">
                                 <div class="show-hide"><span class="show"> </span></div>
                             </div>
