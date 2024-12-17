@@ -10,17 +10,15 @@ class PageTitle extends Component
 {
     public $title;
     public $homeUrl;
-    public $parent;
-    public $current;
+    public $breadcrumbs;
     /**
      * Create a new component instance.
      */
-    public function __construct($title, $homeUrl, $parent, $current)
+    public function __construct($title, $homeUrl, $breadcrumbs = [])
     {
         $this->title = $title;
         $this->homeUrl = $homeUrl;
-        $this->parent = $parent;
-        $this->current = $current;
+        $this->breadcrumbs = $breadcrumbs;
     }
 
 
