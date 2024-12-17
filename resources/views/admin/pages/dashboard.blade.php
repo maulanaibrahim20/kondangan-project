@@ -1,4 +1,4 @@
 @extends('index')
 @section('content')
-    ini dashboard
+    <x-page-title title="Dashboard" home-url="{{ url('/admin/dashboard') }}" :breadcrumbs="[['label' => 'Dashboard', 'url' => url('admin/dashboard')]]" />
 @endsection
