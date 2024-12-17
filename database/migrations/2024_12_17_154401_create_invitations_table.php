@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->references("id")->on("users");
             $table->string("title", 150)->default("-");
             $table->string("contact", 100)->default("-");
-            $table->date("schedule_at", 150)->default(DB::raw("CURRENT_DATE"));
+            $table->date("schedule_at");
             $table->unsignedInteger("amount")->default(0);
             $table->string("image", 150)->default("-");
             $table->timestamps();
