@@ -36,3 +36,5 @@
 <script src="{{ url('/assets') }}/js/script.js"></script>
 <script src="{{ url('/assets') }}/js/theme-customizer/customizer.js"></script>
 <!-- login js-->
+
+@stack("js")

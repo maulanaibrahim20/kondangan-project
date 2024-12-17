@@ -6,58 +6,47 @@
             </div>
             <div class="col-xl-5 p-0">
                 <div class="login-card">
-                    <form class="theme-form login-form">
+                    <form class="theme-form login-form" method="post" action="{{ asset('/register') }}">
+                        @csrf
                         <h4>Create your account</h4>
                         <h6>Enter your personal details to create account</h6>
                         <div class="form-group">
                             <label>Your Name</label>
                             <div class="small-group">
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <input class="form-control" type="email" required="" placeholder="First Name">
+                                    <input class="form-control" type="text" required placeholder="First Name"
+                                        name="first_name" maxlength="50">
                                 </div>
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
-                                    <input class="form-control" type="email" required="" placeholder="Last Name">
+                                    <input class="form-control" type="text" required placeholder="Last Name"
+                                        name="last_name" maxlength="50">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Email Address</label>
-                            <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                                <input class="form-control" type="email" required="" placeholder="Test@gmail.com">
+                            <label>Username</label>
+                            <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                                <input class="form-control" type="text" required name="username" placeholder="Ex. asep24"
+                                    maxlength="100">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
                             <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
-                                <input class="form-control" type="password" name="login[password]" required=""
-                                    placeholder="*********">
+                                <input class="form-control" type="password" name="password" required placeholder="*********"
+                                    maxlength="255">
                                 <div class="show-hide"><span class="show"> </span></div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <div class="checkbox">
-                                <input id="checkbox1" type="checkbox">
+                                <input id="checkbox1" type="checkbox" required name="acception">
                                 <label class="text-muted" for="checkbox1">Agree with <span>Privacy Policy
                                     </span></label>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <button class="btn btn-primary btn-block" type="submit">Create Account</button>
-                        </div>
-                        <div class="login-social-title">
-                            <h5>Sign in with</h5>
-                        </div>
-                        <div class="form-group">
-                            <ul class="login-social">
-                                <li><a href="https://www.linkedin.com/login" target="_blank"><i
-                                            data-feather="linkedin"></i></a></li>
-                                <li><a href="https://twitter.com" target="_blank"><i data-feather="twitter"></i></a>
-                                </li>
-                                <li><a href="https://www.facebook.com" target="_blank"><i data-feather="facebook"></i></a>
-                                </li>
-                                <li><a href="https://www.instagram.com/login" target="_blank"><i data-feather="instagram">
-                                        </i></a></li>
-                            </ul>
                         </div>
                         <p>Already have an account?<a class="ms-2" href="{{ url('/login') }}">Sign in</a></p>
                     </form>
@@ -66,3 +55,29 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(function() {
+            $("form").on("submit", function(e) {
+                e.preventDefault()
+
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.code == "000") {
+                            window.location.href = "/login"
+                        } else {
+                            alert(response.messages)
+                        }
+                    },
+                    error: function(error) {
+                        alert("Something went wrong!")
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
