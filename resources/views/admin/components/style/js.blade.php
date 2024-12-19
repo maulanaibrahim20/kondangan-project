@@ -1,5 +1,5 @@
 <!-- latest jquery-->
-<script src="{{ url('/assets') }}/js/jquery-3.5.1.min.js"></script>
+<script src="{{ url('/assets') }}/js/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap js-->
 <script src="{{ url('/assets') }}/js/bootstrap/bootstrap.bundle.min.js"></script>
 <!-- feather icon js-->
@@ -37,4 +37,8 @@
 <script src="{{ url('/assets') }}/js/theme-customizer/customizer.js"></script>
 <!-- login js-->
 
-@stack("js")
+<!-- Plugins JS start-->
+<script src="{{ url('/assets') }}/js/datatable/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ url('/assets') }}/js/datatable/datatables/datatable.custom.js"></script>
+
+@stack('js')

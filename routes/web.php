@@ -4,6 +4,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.pages.dashboard');
         });
+        Route::get('user', [UserController::class, 'index']);
+        Route::get('user/create', [UserController::class, 'create'])->name('admin.user.create');
+        Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('admin.user->edit');
+        Route::get('user/{id}/view', [UserController::class, 'show'])->name('admin.user->view');
     });
 
     Route::get('/logout', LogoutController::class);
