@@ -54,6 +54,7 @@
     </div>
     </div>
     @include('admin.components.style.js')
+    @yield('scripts')
     <!-- Plugin used-->
 </body>
 
