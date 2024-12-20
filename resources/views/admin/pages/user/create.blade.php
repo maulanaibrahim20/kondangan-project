@@ -1,4 +1,5 @@
-<form id="userForm">
+<form id="userForm" method="post" action="{{ url('admin/user/create') }}">
+    @csrf
     <!-- Name -->
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
@@ -35,8 +36,8 @@
 
     <!-- Confirm Password -->
     <div class="mb-3">
-        <label for="confirmPassword" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
             placeholder="Confirm your password" required>
     </div>
     <div class="modal-footer">
@@ -44,3 +45,27 @@
         <button class="btn btn-primary" type="submit" form="userForm">Save changes</button>
     </div>
 </form>
+
+<script>
+    $(function() {
+        let datatable = $('#example2').DataTable();
+        $("form").on("submit", function(e) {
+            e.preventDefault()
+
+            $.ajax({
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
+                data: $(this).serialize(),
+                success: function(response) {
+                    datatable.ajax.reload();
+                    if (response.code == "000") {
+                        $("#exampleModalCenter").modal("hide")
+                    } else {
+                        alert(response.messages)
+                    }
+                },
+                error: function(error) {}
+            })
+        })
+    })
+</script>
