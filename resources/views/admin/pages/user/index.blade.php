@@ -1,4 +1,9 @@
 @extends('index')
+
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2.css') }}">
+@endpush
+
 @section('content')
     <x-page-title title="User" home-url="{{ url('/admin/dashboard') }}" :breadcrumbs="[['label' => 'User', 'url' => url('admin/user')]]" />
     <div class="container-fluid">
@@ -50,6 +55,7 @@
 
 
 @section('scripts')
+    <script src="{{ asset('assets/js/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
         $(function() {
             $('#example2').DataTable({
@@ -97,7 +103,9 @@
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" onclick="editModal(${row.id})" data-bs-target="#exampleModalCenter">
                             <i class="icon-pencil-alt"></i>
                         </button>
-                        <button class="btn btn-danger" onclick="deleteData('${row.id}')"><i class="icon-trash"></i></button>
+                        ${row.id != 1 ? `
+                                    <button class="btn btn-danger" onclick="deleteData('${row.id}')"><i class="icon-trash"></i></button>
+                                    `: ""}
                         </div>
 
                         `;
@@ -148,6 +156,40 @@
                 error: function(error) {
                     console.log("Error:", error);
                     alert('Gagal memuat data modal.');
+                }
+            });
+        }
+
+        function deleteData(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: `/admin/user/` + id,
+                        type: 'POST',
+                        data: {
+                            _method: 'DELETE',
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.code == "000") {
+                                swal("Your data has been deleted!", {
+                                    icon: "success",
+                                });
+                                $('#example2').DataTable().ajax.reload();
+                            } else {
+                                alert(response.messages)
+                            }
+                        },
+                        error: function(error) {}
+                    })
+                } else {
+                    swal("Your data is safe!");
                 }
             });
         }
